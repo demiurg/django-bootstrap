@@ -171,3 +171,25 @@ class Fieldset(object):
         legend_html = self.legend and (u'<legend>%s</legend>' % self.legend) or ''
         return u'<fieldset class="%s">%s%s</fieldset>' % (self.css_class, legend_html, form.render_fields(self.fields))
 
+class FieldsetCollapsed(Fieldset):
+    """ Fieldset container. Renders to a <fieldset>. """
+
+    def __init__(self, legend, *fields, **kwargs):
+        self.collapsed = kwargs.pop('collapsed', True) 
+        self.legend = legend
+        self.fields = fields
+        self.css_class = kwargs.get('css_class', '_'.join(legend.lower().split()))
+
+    def as_html(self, form):
+        if self.collapsed:
+            collapse = "accordion-body collapse"
+        else:
+            collapse = "accordion-body collapse in"
+
+        legend_html = self.legend and (u'<div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" href="#%s">%s</a></div>' % (self.css_class, self.legend)) or ''
+        
+        return '''<div class="accordion-group">%s
+                    <div id="%s" class="%s">
+                        <div class="accordion-inner %s">%s</div>
+                    </div>
+                </div>''' % (legend_html, self.css_class, collapse, self.css_class, form.render_fields(self.fields))
