@@ -29,20 +29,20 @@ class OptionsRadio(RadioSelect):
 class AppendedText(TextInput):
     def render(self, name, value, attrs=None):
         append_text = self.attrs.get('text', '')
-        return mark_safe(u'%s<span class="add-on">%s</span>' % (super(AppendedText, self).render(name, value, attrs),
+        return mark_safe(u'<div class="input-append">%s<span class="add-on">%s</span></div>' % (super(AppendedText, self).render(name, value, attrs),
                                                      append_text))
 
 
 class PrependedText(TextInput):
     def render(self, name, value, attrs=None):
         prepend_text = self.attrs.get('text', '')
-        return mark_safe(u'<span class="add-on">%s</span>%s' % (prepend_text, super(PrependedText, self).render(name, value, attrs)))
+        return mark_safe(u'<div class="input-prepend"><span class="add-on">%s</span>%s</div>' % (prepend_text, super(PrependedText, self).render(name, value, attrs)))
 
 
 class AppendPrependText(TextInput):
     def render(self, name, value, attrs=None):
         append_text, prepend_text = self.attrs.get('append_text', ''), self.attrs.get('prepend_text', '')
-        return mark_safe(u'<span class="add-on">%s</span>%s<span class="add-on">%s</span>' % (prepend_text, super(AppendPrependText, self).render(name, value, attrs), append_text))
+        return mark_safe(u'<div class="input-prepend input-append"><span class="add-on">%s</span>%s<span class="add-on">%s</span></div>' % (prepend_text, super(AppendPrependText, self).render(name, value, attrs), append_text))
 
 
 class EmailInput(Input):
