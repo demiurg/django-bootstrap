@@ -183,10 +183,12 @@ class FieldsetCollapsed(Fieldset):
     def as_html(self, form):
         if self.collapsed:
             collapse = "accordion-body collapse"
+            link = " collapsed"
         else:
             collapse = "accordion-body collapse in"
+            link = ""
 
-        legend_html = self.legend and (u'<div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" href="#%s">%s</a></div>' % (self.css_class, self.legend)) or ''
+        legend_html = self.legend and (u'<div class="accordion-heading"><a class="accordion-toggle%s" data-toggle="collapse" href="#%s">%s</a></div>' % (link, self.css_class, self.legend)) or ''
         
         return '''<div class="accordion-group">%s
                     <div id="%s" class="%s">
